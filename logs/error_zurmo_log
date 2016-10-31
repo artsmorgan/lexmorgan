@@ -1,0 +1,21 @@
+[Wed Oct 26 10:05:01.035849 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP Fatal error:  Call to a member function find() on null in /Library/WebServer/Documents/zurmo/redbean/rb.php on line 7320
+[Wed Oct 26 10:05:01.035990 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP Stack trace:
+[Wed Oct 26 10:05:01.036006 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   1. CApplication->handleException() /Library/WebServer/Documents/zurmo/yii/framework/base/CApplication.php:0
+[Wed Oct 26 10:05:01.036018 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   2. CErrorHandler->handle() /Library/WebServer/Documents/zurmo/yii/framework/base/CApplication.php:720
+[Wed Oct 26 10:05:01.036029 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   3. CErrorHandler->handleException() /Library/WebServer/Documents/zurmo/yii/framework/base/CErrorHandler.php:129
+[Wed Oct 26 10:05:01.036038 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   4. ZurmoErrorHandler->render() /Library/WebServer/Documents/zurmo/yii/framework/base/CErrorHandler.php:204
+[Wed Oct 26 10:05:01.036049 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   5. CErrorHandler->render() /Library/WebServer/Documents/zurmo/app/protected/core/components/ZurmoErrorHandler.php:43
+[Wed Oct 26 10:05:01.036058 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   6. CWebApplication->runController() /Library/WebServer/Documents/zurmo/yii/framework/base/CErrorHandler.php:331
+[Wed Oct 26 10:05:01.036068 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   7. CController->run() /Library/WebServer/Documents/zurmo/yii/framework/web/CWebApplication.php:282
+[Wed Oct 26 10:05:01.036079 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   8. CController->runActionWithFilters() /Library/WebServer/Documents/zurmo/yii/framework/web/CController.php:265
+[Wed Oct 26 10:05:01.036088 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP   9. CFilterChain->run() /Library/WebServer/Documents/zurmo/yii/framework/web/CController.php:291
+[Wed Oct 26 10:05:01.036098 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  10. CController->runAction() /Library/WebServer/Documents/zurmo/yii/framework/web/filters/CFilterChain.php:133
+[Wed Oct 26 10:05:01.036108 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  11. CInlineAction->runWithParams() /Library/WebServer/Documents/zurmo/yii/framework/web/CController.php:308
+[Wed Oct 26 10:05:01.036118 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  12. ZurmoDefaultController->actionError() /Library/WebServer/Documents/zurmo/yii/framework/web/actions/CInlineAction.php:49
+[Wed Oct 26 10:05:01.036128 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  13. PageView->render() /Library/WebServer/Documents/zurmo/app/protected/modules/zurmo/controllers/DefaultController.php:116
+[Wed Oct 26 10:05:01.036138 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  14. PageView->renderXHtmlStart() /Library/WebServer/Documents/zurmo/app/protected/core/views/PageView.php:72
+[Wed Oct 26 10:05:01.036148 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  15. ThemeManager->getActiveBackgroundTexture() /Library/WebServer/Documents/zurmo/app/protected/core/views/PageView.php:170
+[Wed Oct 26 10:05:01.036157 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  16. WebUser->__get() /Library/WebServer/Documents/zurmo/app/protected/core/views/PageView.php:92
+[Wed Oct 26 10:05:01.036167 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  17. User::getByUsername() /Library/WebServer/Documents/zurmo/app/protected/modules/zurmo/components/WebUser.php:56
+[Wed Oct 26 10:05:01.036177 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  18. RedBean_Facade::findOne() /Library/WebServer/Documents/zurmo/app/protected/modules/users/models/User.php:53
+[Wed Oct 26 10:05:01.036187 2016] [:error] [pid 1562] [client 127.0.0.1:51682] PHP  19. RedBean_Facade::find() /Library/WebServer/Documents/zurmo/redbean/rb.php:7385
