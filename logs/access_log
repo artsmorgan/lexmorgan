@@ -337,3 +337,7 @@
 127.0.0.1 - - [30/Oct/2016:18:23:47 -0600] "GET / HTTP/1.1" 200 84698
 127.0.0.1 - - [30/Oct/2016:18:25:38 -0600] "GET / HTTP/1.1" 200 71745
 127.0.0.1 - - [30/Oct/2016:18:25:59 -0600] "GET / HTTP/1.1" 200 70959
+127.0.0.1 - - [01/Nov/2016:22:29:25 -0600] "GET / HTTP/1.1" 200 70887
+127.0.0.1 - - [01/Nov/2016:22:29:25 -0600] "GET /assets/css/main.css HTTP/1.1" 304 -
+127.0.0.1 - - [01/Nov/2016:22:29:26 -0600] "GET /assets/images/header/avatar-alex.png HTTP/1.1" 200 31133
+127.0.0.1 - - [01/Nov/2016:22:29:27 -0600] "GET /assets/plugins/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.1 HTTP/1.1" 200 70728
