@@ -1,0 +1,293 @@
+<!--
+	Hello Number8 guys.
+	@author Alex Morgan
+
+	@title JS Practice.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script
+				  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+				  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+				  crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+		<script src="https://momentjs.com/downloads/moment-with-locales.js" ></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" ></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<style>
+			.calendar-tb{
+				margin: 10px 0;
+				border-collapse: collapse;
+			}
+			.calendar-tb tr td{
+			    background: #d0ffbf;
+			    padding: 5px;
+			    border: 1px solid black;
+
+			}
+			.calendar-tb tr.days td:first-child,
+			.calendar-tb tr.days td:last-child {
+			    background: yellow
+			}
+
+			.calendar-tb tr td.title{
+				background: #c3eab4;
+				text-align: center;
+			}
+	    	.calendar-tb tr td.emptyCell{
+	    		background: #ddd
+	    	}
+
+	    	.wrapper{
+	    		width: 800px;
+	    		margin: 0 auto;
+	    	}
+	  </style>
+	</head>
+	<body>
+		<div class="wrapper">
+		<h2>Calendar</h2>
+			<div>
+				<div class="form-group">
+				    <label for="date">Start Date</label>
+				    <input type="text" name="date" id="date" class="form-control" />
+				</div>
+				<div class="form-group">
+				    <label for="days">Numbers of Days</label>
+				    <input type="text" name="days" id="days" class="form-control" />
+				</div>
+				<div class="form-group">
+				    <label for="code">Country Code</label>
+				    <input type="text" name="code" id="code" class="form-control" />
+				</div>
+				<div><button id="get-dates" class="btn btn-primary">Get Dates</button></div>
+			</div>
+					
+			<div id="rst"></div>
+		</div>
+	</body>
+
+	<script>		
+
+		function getAPIKey(){
+			return '723b9d4a-b1b9-4353-9118-229cb33b6217';
+		}
+
+
+		function getRawDates(startDate, stopDate) {
+	      var dateArray =[];
+	      var currentDate = startDate;
+	      
+	      while (currentDate < stopDate) {
+	      	var dayMetadata = {};
+	        dayMetadata.dow = currentDate.day();
+	        dayMetadata.dateToNumber = currentDate.date();
+	        dayMetadata.month = currentDate.month();
+	        dayMetadata.year = currentDate.year();
+	        // dateArray.push(currentDate.toDate())			        
+	        dateArray.push(dayMetadata)
+
+	        currentDate = startDate.add(1, 'days');
+
+	      }
+	      return dateArray;
+	    }
+
+	    function getMonthName(pos){
+	    	var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	    	return mL[pos];
+	    }
+
+	    function groupCalendarObj(rawDates){
+	    	return _.groupBy(rawDates, function(calendar) {
+			  return calendar.year;
+			});	
+	    }
+
+	    function groupDatesByYMD(rawDates){
+	    	
+	    	var grouped = groupCalendarObj(rawDates);
+
+			return _.forEach(grouped, function(value, key) {
+			  grouped[key] = _.groupBy(grouped[key], function(item) {
+			    return item.month;
+			  });
+			});
+
+			
+	    }
+
+	    function drawCalendarTable(calendar){
+	    	$('#rst').empty();
+	    
+	    	//Goup by year
+	    	_.forEach(calendar, function(value, key) {
+	    		
+	    		var rst = '<div class="year-rst">';
+	    		//group by month
+		    		_.forEach(value, function(days, month) {
+		    			var m = getMonthName(month);	    			
+		    			
+		    			var table = '<table class="calendar-tb">';
+		    				table += '<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>';
+		    				table += '<tr><td colspan="7" class="title">'+m+' ' + key+'</td></tr>';				    		
+				    		table +=  drawWeeks(days);
+				    		table += '</table>';
+
+				    	rst += table;
+		    		})
+		    	rst += '</div>';	
+	    		$('#rst').append(rst);
+	    	});
+	    }
+
+	    function pad(d) {
+		    return (d < 10) ? '0' + d.toString() : d.toString();
+		}
+
+	    // function getHolidaysUrl(calendar){
+	    // 	var calendarFormatted = groupDatesByYMD(calendar);
+	    // 	var urls = [];
+	    // 	var countryCode = $('#code').val();
+	    // 		countryCode = (countryCode=='')?'US':countryCode;
+	    // 	_.forEach(calendarFormatted, function(v, year) {	    		
+	    // 			var urlObj = {};
+	    // 			var url = '';
+	    // 			var m = 0;
+	    // 			console.log('year',year);
+		   //  		_.forEach(year, function(days, month) {
+		   //  			console.log('day',days);
+		   //  			console.log('month',month);
+		   //  			m = pad(month);
+		   //  			urlObj.url = 'https://holidayapi.com/v1/holidays?key='+getAPIKey()+'&country='+countryCode+'&year=2017&month='+m;
+		   //  			urlObj.month = m;
+		   //  			urls.push(urlObj);
+		   //  		});
+		   //  }); 		
+		   //  return urls;
+	    // }
+
+	   //  function getHolidays(calendar){
+	   //  	var urls = 	getHolidaysUrl(calendar);
+	    	
+	   //  	var rst = [];
+	   //  	for(var i = 0; i < urls.length; i++){
+	   //  		$.ajax({
+				//     type: 'GET',
+				//     url: urls[i].url,
+				//     crossDomain: true,
+    // 				jsonp: false,
+    // 				jsonpCallback: "myJsonMethod",
+				//     async: false,
+				//     success: function(data) {				    	
+				//     	// data = JSON.parse(data);
+				//         console.log('data',data);
+				//     }, 
+				//     error: function(jqXHR) {
+				//         console.log('jqXHR ERROR',jqXHR)
+				//     }
+				// });
+	   //  	}
+
+	   //  }
+
+	    function drawWeeks(dayList){
+	    	// console.log('dayList',dayList)
+	    	//draw start week
+	    	var monthLenght = _.size(dayList);
+	    	var tr = '<tr class="days">';
+	    	var cont = 0;
+	    	var eofWeek = 7;
+	    	var count = 1;
+	    	var diff = 0;
+	    	var emptyCells = 0;
+	    	_.forEach(dayList, function(v, k) {
+	    		// console.log('v.dow',v.dow)
+	    		
+	    		var autovar = 0;
+	    		var diff = 0;
+	    		//check if the first date is not on sunday
+	    		if(k == 0){	  
+	    			emptyCells = v.dow;	
+	    			for(var i = 0; i < emptyCells; i++){
+	    				tr += '<td class="emptyCell"></td>';
+	    			}
+
+	    		}
+
+
+	    		diff = emptyCells+1;
+
+	    		k = k+diff;	    		
+
+	    		tr += '<td>'+v.dateToNumber+'</td>';
+
+	    		if(count == monthLenght){	 		
+	    			var lastCell = 6 - v.dow;
+	    			for(var i = 0; i < lastCell; i++){
+	    				tr += '<td class="emptyCell last"></td>';
+	    			}
+	    			
+	    		}
+	    	
+				 var remainder = k % eofWeek;
+				if (k!=0 && remainder == 0){
+					tr += '</tr><tr class="days">';
+				} 
+
+				count++;
+
+
+	    		
+	    	})
+	    	tr += '</tr>'
+	    	count++;
+	    	return tr;
+
+	    	//draw end week
+	    }
+
+		$(document).ready(function(){
+
+			//Will use https://holidayapi.com/ to get holidays in to the calendar
+			//API Key: 723b9d4a-b1b9-4353-9118-229cb33b6217			
+			var url = 'https://holidayapi.com/v1/holidays?key=723b9d4a-b1b9-4353-9118-229cb33b6217&country=US&year=2017&month=08';			
+
+			//init date picker
+			$( "#date" ).datepicker();
+
+			
+			$('#get-dates').on('click',function(e){
+				
+		
+				//parse date
+				var startDate = moment($('#date').val());
+				var addDays = $('#days').val();				
+				var sd = startDate.clone();
+				var endDate = sd.add(addDays, 'days');
+
+				var dateArray = getRawDates(startDate, endDate);
+				
+				var calendarFormatted = groupDatesByYMD(dateArray);
+				// var holidays = getHolidays(dateArray);
+
+				drawCalendarTable(calendarFormatted);
+
+
+
+			})
+
+			
+
+			// alert('ready');
+		})
+	</script>
+</body>
+</html>
