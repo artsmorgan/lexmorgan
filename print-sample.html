@@ -1,0 +1,81 @@
+<!--
+	Hello Number8 guys.
+	@author Alex Morgan
+
+	@title JS Practice.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script
+				  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+				  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+				  crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+		<script src="https://momentjs.com/downloads/moment-with-locales.js" ></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" ></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<style>
+			.calendar-tb{
+				margin: 10px 0;
+				border-collapse: collapse;
+			}
+			.calendar-tb tr td{
+			    background: #d0ffbf;
+			    padding: 5px;
+			    border: 1px solid black;
+
+			}
+			.calendar-tb tr.days td:first-child,
+			.calendar-tb tr.days td:last-child {
+			    background: yellow
+			}
+
+			.calendar-tb tr td.title{
+				background: #c3eab4;
+				text-align: center;
+			}
+	    	.calendar-tb tr td.emptyCell{
+	    		background: #ddd
+	    	}
+
+	    	.wrapper{
+	    		width: 800px;
+	    		margin: 0 auto;
+	    	}
+	    	@media print {
+			    .print { 
+			        width: 55mm;
+			    }
+			}
+	  </style>
+	</head>
+<body>
+	<div class="print">
+		<div class="logo"></div>
+		<h3>PRINT TITLE</h3>
+		<div><small>Print subtitle</small></div>
+		<div><small>Phone: 2222222</small></div>
+		<ul>
+			<li>line #1: Produc description - Value $200.00</li>
+			<li>line #2: Produc description - Value $200.00</li>
+			<li>line #3: Produc description - Value $200.00</li>
+			<li>line #4: Produc description - Value $200.00</li>
+			<li>line #5: Produc description - Value $200.00</li>
+			<li>line #6: Produc description - Value $200.00</li>
+			<li>line #7: Produc description - Value $200.00</li>
+			<li>line #8: Produc description - Value $200.00</li>
+			<li>line #9: Produc description - Value $200.00</li>
+			<li>line #20: Produc description - Value $200.00</li>			
+		</ul>
+		<div>Total $1,000.00</div>
+	</div>
+	
+</body>
+</html>
